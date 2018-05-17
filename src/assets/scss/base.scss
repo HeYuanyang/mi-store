@@ -1,0 +1,565 @@
+@import "./mixin"; // 常用Mixin
+
+/**************************************************
+ * 通用样式
+ **************************************************/
+
+.orange {
+  color: #ff6700;
+}
+
+.pull-right {
+  float: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/**************************************************
+ * 全局样式(App.vue)
+ **************************************************/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei",
+    "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  color: #333;
+  background: #fafafa;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// 容器
+#container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+// 头部
+#header {
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  @include clearfix;
+
+  .header-logo {
+    float: left;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 50px;
+    color: #ff6700;
+    text-decoration: none;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      vertical-align: top;
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      background: #ff6700 url(./assets/img/mi-logo.png);
+    }
+  }
+
+  .header-nav {
+    float: left;
+    margin: 10px 50px;
+
+    .nav-item {
+      display: inline-block;
+      vertical-align: top;
+      min-width: 80px;
+      padding: 0 10px;
+      font-size: 18px;
+      line-height: 30px;
+      color: #333;
+      text-align: center;
+      text-decoration: none;
+
+      &:hover,
+      &.router-link-active {
+        color: #ff6700;
+      }
+    }
+  }
+
+  .header-input {
+    float: right;
+    margin: 5px 50px;
+
+    .el-input-group__append,
+    .el-input-group__prepend {
+      color: #fff;
+      background: #ff6700;
+      border-color: #ff6700;
+
+      &:focus,
+      &:hover {
+        background: #ff944d;
+        border-color: #ff944d;
+      }
+    }
+  }
+
+  .header-options {
+    float: right;
+    margin: 15px 0;
+
+    .options-item {
+      display: inline-block;
+      vertical-align: top;
+      padding: 0 15px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #aaa;
+      text-decoration: none;
+
+      &:hover {
+        color: #333;
+      }
+
+      & + .options-item {
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: -2px;
+          display: block;
+          width: 1px;
+          height: 14px;
+          margin-top: -7px;
+          background: #bbb;
+        }
+      }
+    }
+
+    .options-point {
+      display: inline-block;
+      vertical-align: top;
+      height: 15px;
+      margin-top: 2px;
+      padding: 0 4px;
+      font-size: 12px;
+      line-height: 16px;
+      color: #fff;
+      background: #f56c6c;
+      border-radius: 5px;
+    }
+  }
+}
+
+// 底部
+#footer {
+  padding: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background: #333;
+
+  p {
+    margin: 0;
+  }
+}
+
+// 按钮
+.mi-button {
+  background: #ff6700;
+  border-color: #ff6700;
+
+  &:focus,
+  &:hover {
+    background: #ff944d;
+    border-color: #ff944d;
+  }
+
+  &[disabled] {
+    background: #bbb;
+    border-color: #bbb;
+
+    &:focus,
+    &:hover {
+      background: #bbb;
+      border-color: #bbb;
+    }
+  }
+}
+
+// 页面
+.mi-page {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ebeef5;
+  border-radius: 4px;
+
+  .mi-page--head {
+    padding: 5px 10px 15px;
+    border-bottom: 1px dashed #ebeef5;
+  }
+
+  .mi-page--title {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  .mi-page--body {
+    padding: 50px 20px;
+  }
+
+  .mi-page--form {
+    width: 400px;
+    margin: 20px auto;
+
+    .mi-button {
+      width: 100%;
+    }
+  }
+
+  .mi-page--user-info {
+    padding: 50px;
+    font-size: 16px;
+    line-height: 25px;
+    text-align: center;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+}
+// 错误页面
+.mi-page.mi-page--style-error {
+  padding: 50px 20px;
+  text-align: center;
+
+  .mi-button {
+    min-width: 200px;
+    margin-top: 20px;
+  }
+
+  .mi-page--title {
+    margin: 20px 0;
+    font-style: italic;
+    font-size: 80px;
+    line-height: 100px;
+    color: #f13b3b;
+  }
+}
+
+// 走马灯
+.mi-carousel {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+  .mi-carousel--img {
+    display: block;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+// 商品模块
+.mi-module {
+  margin-bottom: 20px;
+
+  & + .mi-module {
+    margin-top: 20px;
+  }
+  @at-root .mi-carousel + .mi-module {
+    margin-top: 40px;
+  }
+
+  .mi-module--head {
+    margin-bottom: 20px;
+  }
+
+  .mi-module--title {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    padding: 0 15px;
+    font-size: 25px;
+    line-height: 30px;
+    color: #ff6700;
+    border-left: 3px solid #ff6700;
+  }
+
+  .mi-module--menu {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+
+    .mi-menu--box {
+      zoom: 1;
+      overflow: hidden;
+
+      & + .mi-menu--box {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
+      }
+
+      .mi-menu--box-title {
+        float: left;
+        margin: 0 20px 0 0;
+        line-height: 25px;
+      }
+
+      .mi-menu--box-content {
+        zoom: 1;
+        overflow: hidden;
+      }
+    }
+
+    .mi-menu--item {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 20px;
+      font-size: 14px;
+      line-height: 25px;
+      color: #aaa;
+      text-decoration: none;
+
+      &:hover,
+      &.active {
+        color: #ff6700;
+      }
+    }
+  }
+
+  .mi-module--tip {
+    margin-bottom: 20px;
+    padding: 20px;
+    font-size: 18px;
+    line-height: 30px;
+    background: #fff;
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+
+    b {
+      font-weight: normal;
+      color: #ff6700;
+    }
+  }
+
+  .mi-module--body {
+  }
+
+  .mi-module--item {
+    height: 386px;
+    margin-bottom: 20px;
+
+    .mi-item--img {
+      display: block;
+      width: 230px;
+      height: 230px;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .mi-item--content {
+      font-size: 15px;
+      line-height: 20px;
+      @include clearfix;
+
+      h4 {
+        margin: 10px 0;
+        line-height: 25px;
+      }
+
+      b,
+      em {
+        color: #ff6700;
+      }
+    }
+
+    .mi-item--info {
+      max-height: 40px;
+      margin: 10px 0;
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 20px;
+      color: #aaa;
+    }
+  }
+}
+
+// 商品详情
+.mi-goods {
+  zoom: 1;
+  overflow: hidden;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ebeef5;
+  border-radius: 4px;
+
+  .mi-goods--preview {
+    float: left;
+    margin-right: 20px;
+
+    img {
+      vertical-align: top;
+    }
+  }
+
+  .mi-goods--details {
+    zoom: 1;
+    overflow: hidden;
+    padding: 20px 0;
+
+    b,
+    em {
+      color: #ff6700;
+    }
+  }
+
+  .mi-goods--name {
+    margin: 20px 0;
+    font-size: 25px;
+    line-height: 35px;
+  }
+
+  .mi-goods--info {
+    margin: 20px 0;
+    color: #aaa;
+  }
+
+  .mi-goods--amount {
+    display: block;
+    margin: 20px 0;
+    font-size: 30px;
+    line-height: 30px;
+    color: #ff6700;
+  }
+
+  .mi-goods--area {
+    margin: 50px 0;
+    padding: 30px 20px;
+    font-size: 16px;
+    background: #fafafa;
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+
+    .el-input-number {
+      margin-right: 20px;
+    }
+
+    .mi-button {
+      min-width: 200px;
+      margin-top: 20px;
+    }
+  }
+}
+
+// 购物车
+.mi-shop {
+  margin-bottom: 20px;
+
+  .mi-shop--head {
+    margin-bottom: 20px;
+  }
+
+  .mi-shop--title {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    padding: 0 15px;
+    font-size: 25px;
+    line-height: 30px;
+    color: #ff6700;
+    border-left: 3px solid #ff6700;
+  }
+
+  .mi-shop--body {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+  }
+
+  .mi-shop--table {
+    width: 100%;
+
+    th,
+    td {
+      padding: 15px 10px;
+      font-size: 15px;
+      line-height: 25px;
+      text-align: center;
+    }
+
+    a {
+      color: #ff6700;
+      text-decoration: none;
+    }
+
+    b {
+      font-weight: normal;
+      color: #ff6700;
+    }
+
+    .mi-shop--img {
+      display: inline-block;
+      vertical-align: middle;
+      width: 80px;
+      margin: 0 10px;
+      cursor: pointer;
+      border: 1px solid #ebeef5;
+      border-radius: 4px;
+    }
+
+    thead {
+      th,
+      td {
+        color: #fff;
+        background: #333;
+      }
+    }
+
+    tbody {
+      tr + tr {
+        th,
+        td {
+          border-top: 1px solid #ebeef5;
+        }
+      }
+    }
+
+    tfoot {
+      th,
+      td {
+        padding: 0;
+        text-align: right;
+        border-top: 1px dashed #ebeef5;
+      }
+
+      .mi-button {
+        min-width: 200px;
+        margin-left: 20px;
+        padding: 15px 20px;
+        font-size: 18px;
+        line-height: 25px;
+        border-radius: 0;
+      }
+    }
+  }
+}
