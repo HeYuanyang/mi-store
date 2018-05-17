@@ -7,11 +7,16 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "server": "node server/app.js",
+    "server:dev": "nodemon -w ./server server/app.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.3.5",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
     "vue": "^2.5.2",
     "vue-cookies": "^1.5.6",
     "vue-router": "^3.0.1",

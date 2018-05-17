@@ -1,6 +1,7 @@
 # mi-store
 
 > A XiaoMi store project
+> 仿小米商城的个人商城小项目
 
 ## Build Setup
 

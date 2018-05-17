@@ -36,6 +36,10 @@ body {
   background: #fafafa;
 }
 
+em {
+  font-style: normal;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -361,9 +365,6 @@ table {
     }
   }
 
-  .mi-module--body {
-  }
-
   .mi-module--item {
     height: 386px;
     margin-bottom: 20px;
@@ -389,6 +390,10 @@ table {
       b,
       em {
         color: #ff6700;
+      }
+
+      em {
+        font-style: normal;
       }
     }
 
