@@ -29,7 +29,7 @@
       }
     },
     created() {
-      // 获取"搜索到的商品列表"！
+      // 搜索"商品列表"！
       let loadingInstance = this.$loading.service({
         lock: true
       })
@@ -38,7 +38,7 @@
           keyword: this.$route.params.keyword
         }
       }).then(res => {
-        this.searchGoodsList = res.data
+        this.searchGoodsList = res.data.data
         loadingInstance.close()
       }).catch(err => {
         loadingInstance.close()

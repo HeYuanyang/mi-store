@@ -12,8 +12,13 @@ module.exports = {
     assetsPublicPath: '/',
     // 代理配置
     proxyTable: {
-      '/*': {
-        target: 'http://localhost:8080'  
+      // 前端测试
+      // '/*': {
+      //   target: 'http://localhost:8080'
+      // },
+      // 后台测试
+      '/api': {
+        target: 'http://localhost:3000'
       }
     },
 

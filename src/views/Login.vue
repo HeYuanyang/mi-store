@@ -13,7 +13,7 @@
           <el-input size="medium" v-model="loginForm.password" placeholder="请输入密码" type="password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button size="medium" class="el-button el-button--primary mi-button" @click="submitForm('loginForm')">登录</el-button>
+          <el-button size="medium" class="el-button el-button--primary mi-button" :disabled="loginForm.isLogin" @click="submitForm('loginForm')">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -32,7 +32,9 @@
           // 用户名
           username: '',
           // 密码
-          password: ''
+          password: '',
+          // 是否登录中
+          isLogin: false
         },
         loginRule: {
           // 用户名的校验规则
@@ -77,15 +79,37 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             // 登录事件(后台交互)！
-            this.$alert('登录成功！', '提示信息', {
-              showClose: false,
-              showCancelButton: false
-            }).then(() => {
-              this.setUserId('10056')
-              this.setUserName(this.loginForm.username)
-              this.$cookies.set('__mi_store_userid__', '10056')
-              this.$cookies.set('__mi_store_username__', this.loginForm.username)
-              this.$router.push('/home')
+            this.loginForm.isLogin = true
+            this.$axios.post('/user/login', {
+              username: this.loginForm.username,
+              password: this.loginForm.password
+            }).then((res) => {
+              let result = res.data
+              let title, msg, path
+
+              if (result.code > 0) {
+                title = '登录成功'
+                msg = '您已登录成功！'
+                path = '/home'
+              }
+              else {
+                title = '登录失败'
+                msg = result.msg
+              }
+
+              this.loginForm.isLogin = false
+
+              this.$alert(msg, title, {
+                showClose: false,
+                showCancelButton: false
+              }).then(() => {
+                if (path) {
+                  this.$router.push(path)
+                  this.$nextTick(() => {
+                    location.reload()
+                  })
+                }
+              })
             })
           } else {
             return false

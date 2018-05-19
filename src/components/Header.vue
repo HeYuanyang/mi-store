@@ -74,14 +74,16 @@
         if (keyword) {
           this.searchKeyword = ''
           this.$router.push('/search/' + keyword)
+          this.$nextTick(() => {
+            location.reload()
+          })
         }
       },
       // 注销事件
       loginOut() {
+        this.$axios.post('/user/exit')
         this.setUserId('')
         this.setUserName('')
-        this.$cookies.remove('__mi_store_userid__')
-        this.$cookies.remove('__mi_store_username__')
         this.$router.push('/home')
       }
     }

@@ -12,6 +12,9 @@ userRouter.post('/login', userController.login)
 // 注册请求
 userRouter.post('/regist', userController.regist)
 
+// 注销请求
+userRouter.post('/exit', userController.exit)
+
 // 用户信息
 userRouter.get('/info', userController.getInfo)
 

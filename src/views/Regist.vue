@@ -16,7 +16,7 @@
           <el-input size="medium" v-model="registForm.repassword" placeholder="请再次确认密码" type="password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button size="medium" class="el-button el-button--primary mi-button" @click="submitForm('registForm')">注册</el-button>
+          <el-button size="medium" class="el-button el-button--primary mi-button" :disabled="registForm.isRegist" @click="submitForm('registForm')">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -33,7 +33,9 @@
           // 密码
           password: '',
           // 确认密码
-          repassword: ''
+          repassword: '',
+          // 是否注册中
+          isRegist: false
         },
         registRule: {
           // 用户名的校验规则
@@ -86,11 +88,34 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             // 注册事件(后台交互)！
-            this.$alert('注册成功！', '提示信息', {
-              showClose: false,
-              showCancelButton: false
-            }).then(() => {
-              this.$router.push('/login')
+            this.registForm.isRegist = true
+            this.$axios.post('/user/regist', {
+              username: this.registForm.username,
+              password: this.registForm.password
+            }).then((res) => {
+              let result = res.data
+              let title, msg, path
+
+              if (result.code > 0) {
+                title = '注册成功'
+                msg = '您已注册成功！'
+                path = '/login'
+              }
+              else {
+                title = '注册失败'
+                msg = result.msg
+              }
+
+              this.registForm.isRegist = false
+
+              this.$alert(msg, title, {
+                showClose: false,
+                showCancelButton: false
+              }).then(() => {
+                if (path) {
+                  this.$router.push(path)
+                }
+              })
             })
           } else {
             return false

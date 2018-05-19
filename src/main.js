@@ -15,6 +15,7 @@ import './assets/font-awesome/css/font-awesome.min.css'
 
 // 引入axios插件
 import axios from 'axios'
+axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios
 
 // 引入ElementUI的Loading插件
@@ -48,7 +49,7 @@ router.beforeEach((to, from, next) => {
     if (to.name === 'Login' || to.name === 'Regist') {
       return next('/home')
     } else if (to.name === 'User' || to.name === 'ShopCart') {
-      if (to.params.userId !== vm.$store.state.userId) {
+      if (to.params.userId != vm.$store.state.userId) {
         return next('/home')
       }
     }

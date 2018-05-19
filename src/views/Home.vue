@@ -36,35 +36,50 @@
 </template>
 
 <script>
+  import {
+    mapState
+  } from 'vuex'
+
   export default {
-    data() {
-      return {
-        // 广告图列表(模拟数据)！
-        adItems: [],
-        // 推荐商品列表(模拟数据)！
-        recommendGoodsList: []
+    computed: {
+      // Vuex状态整合到计算属性
+      ...mapState([
+        // 广告图列表
+        'adItems',
+        // 全部商品列表
+        'totalGoodsList'
+      ]),
+      // 推荐商品列表
+      recommendGoodsList() {
+        let goodsList = this.totalGoodsList.filter(item => {
+          return item.isRecommend === 1
+        })
+        return this.typeGoodsList(goodsList)
       }
     },
-    created() {
-      let loadingInstance = this.$loading.service({
-        lock: true
-      })
-      this.$axios.all([getAdItems.call(this), getRecommendGoodsList.call(this)])
-        .then(this.$axios.spread((res1, res2) => {
-          this.adItems = res1.data
-          this.recommendGoodsList = res2.data
-          loadingInstance.close()
-        })).catch(err => {
-          loadingInstance.close()
-        })
+    methods: {
+      // 以商品类型为主的商品列表
+      typeGoodsList(goodsList) {
+        let typeGoodsList = []
+        for (let i = 0; i < goodsList.length; i++) {
+          let flag = false
+          for (let j = 0; j < typeGoodsList.length; j++) {
+            if (goodsList[i].type === typeGoodsList[j].type) {
+              flag = true
+              typeGoodsList[j].goodsList.push(goodsList[i])
+              break
+            }
+          }
 
-      // 获取"广告图列表"！
-      function getAdItems() {
-        return this.$axios.get('/goods/adItems')
-      }
-      // 获取"推荐商品列表"！
-      function getRecommendGoodsList() {
-        return this.$axios.get('/goods/recommendGoodsList')
+          if (!flag) {
+            typeGoodsList.push({
+              type: goodsList[i].type,
+              goodsList: [goodsList[i]]
+            })
+          }
+        }
+
+        return typeGoodsList
       }
     }
   }

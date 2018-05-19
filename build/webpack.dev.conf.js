@@ -46,34 +46,35 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    setup(app) {
-      // 获取"广告图列表"
-      app.get('/goods/adItems', (req, res) => {
-        res.json(goods.adItems)
-      })
+    // 前端测试
+    // setup(app) {
+    //   // 获取"广告图列表"
+    //   app.get('/goods/adItems', (req, res) => {
+    //     res.json(goods.adItems)
+    //   })
 
-      // 获取"推荐商品列表"
-      app.get('/goods/recommendGoodsList', (req, res) => {
-        res.json(goods.recommendGoodsList)
-      })
+    //   // 获取"推荐商品列表"
+    //   app.get('/goods/recommendGoodsList', (req, res) => {
+    //     res.json(goods.recommendGoodsList)
+    //   })
 
-      // 获取"全部商品列表"
-      app.get('/goods/totalGoodsList', (req, res) => {
-        res.json(goods.totalGoodsList)
-      })
+    //   // 获取"全部商品列表"
+    //   app.get('/goods/totalGoodsList', (req, res) => {
+    //     res.json(goods.totalGoodsList)
+    //   })
 
-      // 获取"搜索到的商品列表"
-      app.get('/goods/searchGoodsList', (req, res) => {
-        console.log(req.params.keyword) // 关键字
-        res.json(goods.searchGoodsList)
-      })
+    //   // 获取"搜索到的商品列表"
+    //   app.get('/goods/searchGoodsList', (req, res) => {
+    //     console.log(req.params.keyword) // 关键字
+    //     res.json(goods.searchGoodsList)
+    //   })
 
-      // 获取"商品详情"
-      app.get('/goods/goodsDetails', (req, res) => {
-        console.log(req.params.goodsId) // 商品ID
-        res.json(goods.goodsDetails)
-      })
-    }
+    //   // 获取"商品详情"
+    //   app.get('/goods/goodsDetails', (req, res) => {
+    //     console.log(req.params.goodsId) // 商品ID
+    //     res.json(goods.goodsDetails)
+    //   })
+    // }
   },
   plugins: [
     new webpack.DefinePlugin({

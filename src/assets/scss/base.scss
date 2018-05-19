@@ -238,13 +238,17 @@ table {
   }
 
   .mi-page--user-info {
-    padding: 50px;
-    font-size: 16px;
+    padding: 20px;
+    font-size: 15px;
     line-height: 25px;
-    text-align: center;
+    color: #aaa;
 
     .fa {
       margin-right: 5px;
+    }
+
+    .fa-user {
+      margin-left: 6px;
     }
   }
 }
@@ -385,6 +389,7 @@ table {
       h4 {
         margin: 10px 0;
         line-height: 25px;
+        @include ellipsis;
       }
 
       b,
@@ -398,7 +403,7 @@ table {
     }
 
     .mi-item--info {
-      max-height: 40px;
+      height: 40px;
       margin: 10px 0;
       overflow: hidden;
       font-size: 14px;
@@ -423,6 +428,7 @@ table {
 
     img {
       vertical-align: top;
+      width: 600px;
     }
   }
 

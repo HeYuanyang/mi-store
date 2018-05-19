@@ -1,6 +1,9 @@
 <!-- 用户详情 -->
 <template>
   <section class="mi-page">
+    <header class="mi-page--head">
+      <h3 class="mi-page--title">用户信息</h3>
+    </header>
     <div class="mi-page--user-info">
       <p>
         <i class="fa fa-id-card"></i>

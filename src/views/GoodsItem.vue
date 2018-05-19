@@ -30,8 +30,6 @@
   export default {
     data() {
       return {
-        // 商品详情(模拟数据)！
-        goodsDetails: {},
         // 商品购买的数量
         goodsBoughtNum: 1
       }
@@ -40,8 +38,18 @@
       // Vuex状态整合到计算属性
       ...mapState([
         // 用户ID
-        'userId'
+        'userId',
+        // 全部商品列表
+        'totalGoodsList'
       ]),
+      // 商品详情(模拟数据)！
+      goodsDetails() {
+        let goodsId = Number(this.$route.params.goodsId)
+        let goodsList = this.totalGoodsList.filter(item => {
+          return item.id === goodsId
+        })
+        return goodsList[0] || {}
+      },
       // 商品购买的合计金额
       goodsBoughtTotal() {
         return this.goodsDetails.amount * this.goodsBoughtNum
@@ -66,33 +74,11 @@
         this.addShopCart(Object.assign({}, this.goodsDetails, {
           num: this.goodsBoughtNum
         }))
-        this.$alert('购买成功！', '立即购买', {
+        this.$alert('该商品已添加到购物车！', '购买信息', {
           showClose: false,
           showCancelButton: false
         })
       }
-    },
-    created() {
-      // 获取"商品详情"！
-      let loadingInstance = this.$loading.service({
-        lock: true
-      })
-      this.$axios.get('/goods/goodsDetails', {
-        params: {
-          goodsId: this.$route.params.goodsId
-        }
-      }).then(res => {
-        this.goodsDetails = res.data
-        this.goodsDetails.id = this.$route.params.goodsId // !!!
-        loadingInstance.close()
-      }).catch(err => {
-        this.$alert('商品详情获取失败！', '获取失败', {
-          showClose: false,
-          showCancelButton: false
-        }).then(() => {
-          this.$router.back()
-        })
-      })
     }
   }
 

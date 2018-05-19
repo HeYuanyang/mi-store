@@ -47,6 +47,10 @@
         'setUserId',
         // 设置用户名
         'setUserName',
+        // 设置广告图列表
+        'setAdItems',
+        // 设置全部商品列表
+        'setTotalGoodsList',
         // 初始化购物车
         'initShopCart'
       ])
@@ -56,14 +60,48 @@
       vFooter
     },
     created() {
-      // 获取用户信息(本地存储)
-      this.setUserId(this.$cookies.get('__mi_store_userid__'))
-      this.setUserName(this.$cookies.get('__mi_store_username__'))
+      // 获取用户信息
+      this.$axios.get('/user/info')
+        .then((res) => {
+          let result = res.data
+          if (result.code > 0) {
+            this.setUserId(result.data.userId)
+            this.setUserName(result.data.username)
 
-      // 获取购物车信息
-      let userId = this.$cookies.get('__mi_store_userid__')
-      let goodsList = this.$cookies.get('__mi_store_shopcart_' + userId + '__')
-      goodsList && this.initShopCart(JSON.parse(goodsList))
+            // 获取购物车信息
+            let goodsList = this.$cookies.get('__mi_store_shopcart_' + result.data.userId + '__')
+            goodsList && this.initShopCart(JSON.parse(goodsList))
+          }
+          else {
+            this.setUserId('')
+            this.setUserName('')
+          }
+        })
+
+      let loadingInstance = this.$loading.service({
+        lock: true
+      })
+      this.$axios.all([getAdItems.call(this), getTotalGoodsList.call(this)])
+        .then(this.$axios.spread((res1, res2) => {
+          if (res1.data.code > 0) {
+            this.setAdItems(res1.data.data)
+          }
+          if (res2.data.code > 0) {
+            this.setTotalGoodsList(res2.data.data)
+          }
+          loadingInstance.close()
+        })).catch(err => {
+          loadingInstance.close()
+        })
+
+      // 获取"广告图列表"！
+      function getAdItems() {
+        return this.$axios.get('/goods/adItems')
+      }
+      // 获取"全部商品列表"！
+      function getTotalGoodsList() {
+        return this.$axios.get('/goods/totalGoodsList')
+      }
     }
   }
 

@@ -94,7 +94,7 @@
       // 删除已购商品
       deleteGoods(index) {
         let currentGoods = this.boughtGoodsList[index]
-        this.$confirm('是否删除 <b class="orange">“' + currentGoods.name + '”</b>', '是否删除', {
+        this.$confirm('是否移除 <b class="orange">“' + currentGoods.name + '”</b>', '移除信息', {
           dangerouslyUseHTMLString: true
         }).then(() => {
           this.removeShopCart(currentGoods)
@@ -103,7 +103,7 @@
       // 购买所有的已购商品
       buyGoodsList() {
         // 购买事件(后台交互)！
-        this.$alert('购买成功！', '提示信息', {
+        this.$alert('您已购买成功！', '购买信息', {
           showClose: false,
           showCancelButton: false
         }).then(() => {

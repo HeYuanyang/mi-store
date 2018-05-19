@@ -3,15 +3,15 @@ const router = new Router()
 const userRouter = require('./user')
 const goodsRouter = require('./goods')
 
-// 应用用户相关的路由配置
-router.use('/user', userRouter.routes())
+// 用户相关的路由配置
+router.use('/api/user', userRouter.routes(), userRouter.allowedMethods())
 
-// 应用商品相关的路由配置
-router.use('/goods', goodsRouter.routes())
+// 商品相关的路由配置
+router.use('/api/goods', goodsRouter.routes(), goodsRouter.allowedMethods())
 
 // 404
 router.all('/*', ctx => {
-  ctx.body = '404'
+  ctx.body = '404 - Not Found'
 })
 
 module.exports = router

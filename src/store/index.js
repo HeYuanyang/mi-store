@@ -12,6 +12,10 @@ export default new Vuex.Store({
     userId: '',
     // 用户名
     userName: '',
+    // 广告图列表
+    adItems: [],
+    // 全部商品列表
+    totalGoodsList: [],
     // 已购商品列表
     boughtGoodsList: []
   },
@@ -23,6 +27,14 @@ export default new Vuex.Store({
     // 设置用户名
     setUserName(state, name) {
       state.userName = name
+    },
+    // 设置广告图列表
+    setAdItems(state, adItems) {
+      state.adItems = adItems
+    },
+    // 设置全部商品列表
+    setTotalGoodsList(state, goodsList) {
+      state.totalGoodsList = goodsList
     },
     // 添加已购商品
     addBoughtGoods(state, goods) {
@@ -60,6 +72,18 @@ export default new Vuex.Store({
       commit
     }, name) {
       commit('setUserName', name)
+    },
+    // 设置广告图列表
+    setAdItems({
+      commit
+    }, adItems) {
+      commit('setAdItems', adItems)
+    },
+    // 设置全部商品列表
+    setTotalGoodsList({
+      commit
+    }, goodsList) {
+      commit('setTotalGoodsList', goodsList)
     },
     // 初始化购物车
     initShopCart({
