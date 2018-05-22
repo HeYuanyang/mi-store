@@ -15,7 +15,6 @@ app.use(session({
   // 存储session信息的MySQL配置
   store: new MysqlSession(config.database),
   cookie: {
-    domain: 'localhost',
     path: '/',
     maxAge: 30 * 60 * 1000,
     httpOnly: true,
